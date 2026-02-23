@@ -80,10 +80,21 @@ def add_product():
     return jsonify({"message":"product added succesfull"})
 
 
-    #save the image to folder
+@app.route("/api/get_products")
+def get_products():
+    connection=pymysql.connect(host="localhost", user="root", password="", database="abraham_sokogarden")
+    cursor=connection.cursor(pymysql.cursors.DictCursor)
+    sql="select * from product_details"
+    cursor.execute(sql)
 
+
+    if cursor.rowcount==0:
+        return jsonify({"message":"out of stock"})
+    else:
+        products=cursor.fetchall()
+        return jsonify({"message":"display all"})
    
-    # return "done"
+    
 
 
     
